@@ -1,4 +1,4 @@
-/* PptxGenJS 3.13.0-beta.1 @ 2024-06-30T19:00:38.411Z */
+/* PptxGenJS 3.13.0-beta.1 @ 2024-08-29T16:29:55.174Z */
 'use strict';
 
 var JSZip = require('jszip');
@@ -44,8 +44,8 @@ function __awaiter(thisArg, _arguments, P, generator) {
 }
 
 function __generator(thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g = Object.create((typeof Iterator === "function" ? Iterator : Object).prototype);
+    return g.next = verb(0), g["throw"] = verb(1), g["return"] = verb(2), typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
     function verb(n) { return function (v) { return step([n, v]); }; }
     function step(op) {
         if (f) throw new TypeError("Generator is already executing.");
@@ -80,6 +80,11 @@ function __spreadArray(to, from, pack) {
     }
     return to.concat(ar || Array.prototype.slice.call(from));
 }
+
+typeof SuppressedError === "function" ? SuppressedError : function (error, suppressed, message) {
+    var e = new Error(message);
+    return e.name = "SuppressedError", e.error = error, e.suppressed = suppressed, e;
+};
 
 /**
  * PptxGenJS Enums
@@ -3779,7 +3784,7 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
                             strXml += '        <a:lstStyle/>';
                             strXml += '        <a:p>';
                             strXml += '          <a:r>';
-                            strXml += '            <a:rPr lang="en-US"/>';
+                            strXml += "            <a:rPr lang=\"en-US\" sz=\"".concat(opts.fontSize * 100, "\"/>");
                             strXml += "            <a:t>".concat(encodeXmlEntities(value), "</a:t>");
                             strXml += '          </a:r>';
                             strXml += '        </a:p>';
