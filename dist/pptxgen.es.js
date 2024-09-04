@@ -1,4 +1,4 @@
-/* PptxGenJS 3.13.0-beta.1 @ 2024-09-04T12:52:36.769Z */
+/* PptxGenJS 3.13.0-beta.1 @ 2024-09-04T14:15:02.537Z */
 import JSZip from 'jszip';
 
 /******************************************************************************
@@ -1676,13 +1676,13 @@ function createSlideMaster(props, target) {
                 // else if (object[key].image) addImageDefinition(tgt, object[key].image)
                 /* 20200120: So... image placeholders go into the "slideLayoutN.xml" file and addImage doesnt do this yet...
                     <p:sp>
-                  <p:nvSpPr>
+                    <p:nvSpPr>
                     <p:cNvPr id="7" name="Picture Placeholder 6">
-                      <a:extLst>
+                        <a:extLst>
                         <a:ext uri="{FF2B5EF4-FFF2-40B4-BE49-F238E27FC236}">
-                          <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{CE1AE45D-8641-0F4F-BDB5-080E69CCB034}"/>
+                            <a16:creationId xmlns:a16="http://schemas.microsoft.com/office/drawing/2014/main" id="{CE1AE45D-8641-0F4F-BDB5-080E69CCB034}"/>
                         </a:ext>
-                      </a:extLst>
+                        </a:extLst>
                     </p:cNvPr>
                     <p:cNvSpPr>
                 */
@@ -2242,7 +2242,7 @@ function addMediaDefinition(target, opt) {
 function addNotesDefinition(target, notes) {
     target._slideObjects.push({
         _type: SLIDE_OBJECT_TYPES.notes,
-        text: [{ text: notes }],
+        text: [{ text: '>#3 ' + notes }],
     });
 }
 /**
@@ -3381,11 +3381,11 @@ function createExcelWorksheet(chartObject, zip) {
                                             var revLabelGroups = data[0].labels.slice().reverse();
                                             revLabelGroups.forEach(function (labelsGroup, idy) {
                                                 /**
-                                                 * const LABELS_REVERSED = [
-                                                 *   ["Mech",     "",     "", "Elec",     "",     "", "Hydr",     "",     ""],
-                                                 *   ["Gear", "Berg", "Motr", "Swch", "Plug", "Cord", "Pump", "Leak", "Seal"],
-                                                 * ];
-                                                 */
+                                                     * const LABELS_REVERSED = [
+                                                     *   ["Mech",     "",     "", "Elec",     "",     "", "Hydr",     "",     ""],
+                                                     *   ["Gear", "Berg", "Motr", "Swch", "Plug", "Cord", "Pump", "Leak", "Seal"],
+                                                     * ];
+                                                     */
                                                 var colLabel = labelsGroup[idx];
                                                 if (colLabel) {
                                                     var totGrpLbls = idy === 0 ? 1 : revLabelGroups[idy - 1].filter(function (label) { return label && label !== ''; }).length; // get unique label so we can add to get proper shared-string #
@@ -3411,14 +3411,14 @@ function createExcelWorksheet(chartObject, zip) {
                                 }
                                 strSheetXml_1 += '</sheetData>';
                                 /* FIXME: support multi-level
-                                if (IS_MULTI_CAT_AXES) {
+                                            if (IS_MULTI_CAT_AXES) {
                                     strSheetXml += '<mergeCells count="3">'
                                     strSheetXml += ' <mergeCell ref="A2:A4"/>'
                                     strSheetXml += ' <mergeCell ref="A10:A12"/>'
                                     strSheetXml += ' <mergeCell ref="A5:A9"/>'
                                     strSheetXml += '</mergeCells>'
-                                }
-                                */
+                                            }
+                                            */
                                 strSheetXml_1 += '<pageMargins left="0.7" right="0.7" top="0.75" bottom="0.75" header="0.3" footer="0.3"/>';
                                 // Link the `table1.xml` file to define an actual Table in Excel
                                 // NOTE: This only works with scatter charts - all others give a "cannot find linked file" error
@@ -3489,8 +3489,8 @@ function makeXmlCharts(rel) {
             strXml += '<c:autoTitleDeleted val="1"/>';
         }
         /** Add 3D view tag
-         * @see: https://c-rex.net/projects/samples/ooxml/e1/Part4/OOXML_P4_DOCX_perspective_topic_ID0E6BUQB.html
-         */
+                 * @see: https://c-rex.net/projects/samples/ooxml/e1/Part4/OOXML_P4_DOCX_perspective_topic_ID0E6BUQB.html
+                 */
         if (rel.opts._type === CHART_TYPE.BAR3D) {
             strXml += "<c:view3D><c:rotX val=\"".concat(rel.opts.v3DRotX, "\"/><c:rotY val=\"").concat(rel.opts.v3DRotY, "\"/><c:rAngAx val=\"").concat(!rel.opts.v3DRAngAx ? 0 : 1, "\"/><c:perspective val=\"").concat(rel.opts.v3DPerspective, "\"/></c:view3D>");
         }
@@ -3693,37 +3693,37 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
             /* EX1:
                 data: [
                  {
-                   name: 'Region 1',
-                   labels: [['April', 'May', 'June', 'July']],
-                   values: [17, 26, 53, 96]
+                     name: 'Region 1',
+                     labels: [['April', 'May', 'June', 'July']],
+                     values: [17, 26, 53, 96]
                  },
                  {
-                   name: 'Region 2',
-                   labels: [['April', 'May', 'June', 'July']],
-                   values: [55, 43, 70, 58]
+                     name: 'Region 2',
+                     labels: [['April', 'May', 'June', 'July']],
+                     values: [55, 43, 70, 58]
                  }
                 ]
-            */
+                        */
             /* EX2:
                 data: [
                  {
-                   name: 'Region 1',
-                   labels: [
-                       ['April', 'May', 'June', 'April', 'May', 'June'],
-                       ['2020',     '',     '', '2021',     '',     '']
-                   ],
-                   values: [17, 26, 53, 96, 40, 33]
+                     name: 'Region 1',
+                     labels: [
+                         ['April', 'May', 'June', 'April', 'May', 'June'],
+                         ['2020',     '',     '', '2021',     '',     '']
+                     ],
+                     values: [17, 26, 53, 96, 40, 33]
                  },
                  {
-                   name: 'Region 2',
-                   labels: [
-                       ['April', 'May', 'June', 'April', 'May', 'June'],
-                       ['2020',     '',     '', '2021',     '',     '']
-                   ],
-                   values: [55, 43, 70, 58, 78, 63]
+                     name: 'Region 2',
+                     labels: [
+                         ['April', 'May', 'June', 'April', 'May', 'June'],
+                         ['2020',     '',     '', '2021',     '',     '']
+                     ],
+                     values: [55, 43, 70, 58, 78, 63]
                  }
                 ]
-             */
+                         */
             data.forEach(function (obj) {
                 var _a;
                 colorIndex++;
@@ -3778,7 +3778,7 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
                             strXml += '        <a:lstStyle/>';
                             strXml += '        <a:p>';
                             strXml += '          <a:r>';
-                            strXml += "            <a:rPr lang=\"en-US\" sz=\"".concat(opts.fontSize * 100, "\"/>");
+                            strXml += "            <a:rPr lang=\"en-US\" ".concat(opts.fontSize ? "sz=\"".concat(opts.fontSize * 100, "\"") : '', "/>");
                             strXml += "            <a:t>".concat(encodeXmlEntities(value), "</a:t>");
                             strXml += '          </a:r>';
                             strXml += '        </a:p>';
@@ -3958,7 +3958,7 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
                     { name:'Y-Value 1', values:[13, 20, 21, 25] },
                     { name:'Y-Value 2', values:[ 1,  2,  5,  9] }
                 ];
-            */
+                        */
             // 1: Start Chart
             strXml += '<c:' + chartType + 'Chart>';
             strXml += '<c:scatterStyle val="lineMarker"/>';
@@ -4234,7 +4234,7 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
                     { name:'Y-Values 1', values:[13, 20, 21, 25], sizes:[10, 5, 20, 15] },
                     { name:'Y-Values 2', values:[ 1,  2,  5,  9], sizes:[ 5, 3,  9,  3] }
                 ];
-            */
+                        */
             // 1: Start Chart
             strXml += '<c:bubbleChart>';
             strXml += '<c:varyColors val="0"/>';
@@ -4368,12 +4368,12 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
             /* EX:
                 data: [
                  {
-                   name: 'Project Status',
-                   labels: ['Red', 'Amber', 'Green', 'Unknown'],
-                   values: [10, 20, 38, 2]
+                     name: 'Project Status',
+                     labels: ['Red', 'Amber', 'Green', 'Unknown'],
+                     values: [10, 20, 38, 2]
                  }
                 ]
-            */
+                        */
             // 1: Start Chart
             strXml += '<c:' + chartType + 'Chart>';
             strXml += '  <c:varyColors val="1"/>';
@@ -4427,7 +4427,7 @@ function makeChartType(chartType, data, opts, valAxisId, catAxisId, isMultiTypeC
                     strXml += '        <a:lstStyle/>';
                     strXml += '        <a:p>';
                     strXml += '          <a:r>';
-                    strXml += '            <a:rPr lang="en-US"/>';
+                    strXml += "            <a:rPr lang=\"en-US\" ".concat(opts.fontSize ? "sz=\"".concat(opts.fontSize * 100, "\"") : '', "/>");
                     strXml += "            <a:t>".concat(encodeXmlEntities((_b = optsChartData.dataLabels) === null || _b === void 0 ? void 0 : _b.at(idx)), "</a:t>");
                     strXml += '          </a:r>';
                     strXml += '        </a:p>';
